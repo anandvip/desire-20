@@ -1,479 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desire Tracker</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-
-    body {
-      background: #f9f9f9;
-      color: #333;
-      font-size: 16px;
-      line-height: 1.5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      background-image: url('https://images.unsplash.com/photo-1531563056027-52dd615b5186?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzU2MjA5NjR8&ixlib=rb-4.0.3&q=85');
-      background-size:cover
-    }
-
-    .container {
-      max-width: 700px;
-      background: #ffffff47;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border:5pt solid
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: #fff;
-    }
-
-    .input-methods {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-
-    button {
-      background: #fff;
-      color: #000;
-      border: 0.5pt solid #000;
-      border-radius: 4px;
-      padding: 10px 15px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background: linear-gradient(45deg, rgba(2, 0, 36, 1) 0%, rgba(0, 255, 254, 1) 40%, rgba(252, 148, 98, 0.1) 82%);
-    }
-
-    form {
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-      outline: none;
-      transition: border 0.3s ease;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      border-color: #00bcd4;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .desires-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .desire-card {
-      background: #f8f8f8;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-    }
-
-    .desire-card h3 {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 8px;
-    }
-
-    .desire-card p {
-      color: #666;
-      font-size: 1rem;
-      margin: 0;
-    }
-
-    .desire-card span {
-      align-self: flex-start;
-      background: #00bcd4;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-size: 0.9rem;
-    }
-
-    .desire-card .delete-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #ff0000;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    .desire-card .delete-btn:hover {
-      color: #d32f2f;
-    }
-
-    .note-input {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .note-input input {
-      flex: 1;
-    }
-
-    .note-list {
-      margin-top: 10px;
-    }
-
-    .note {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-bottom: 5px;
-      background: #fdfdfd;
-    }
-
-    .note span {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .note .note-delete {
-      background: none;
-      border: none;
-      color: #ff0000;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .note .note-delete:hover {
-      color: #d32f2f;
-    }
-
-    .toast {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #00bcd4;
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: all 0.3s ease;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .empty-state {
-      text-align: center;
-      color: #888;
-      font-size: 1rem;
-      margin-top: 20px;
-    }
-    header{
-      padding:20px;
-     background-image: url('https://images.unsplash.com/photo-1604613540080-ff7c3f660cbf?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzU2MjAyMzZ8&ixlib=rb-4.0.3&q=85');
-      background-position:center;
-      background-size:cover;
-      color:#fff;
-      border-radius:4px;
-      margin-bottom:2px
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-   <header> <h1>✨ Desire Tracker</h1></header>
-
-    <div class="input-methods">
-      <button id="googleSignInBtn">🔑 Sign In with Google</button>
-      <button id="micBtn">🎤 Start Dictation</button>
-    </div>
-
-    <form class="desire-form" id="desireForm">
-      <div class="form-group">
-        <label for="desireTitle">What's your desire?</label>
-        <input type="text" id="desireTitle" required placeholder="Enter your desire...">
-      </div>
-
-      <div class="form-group">
-        <label for="desireDescription">Description</label>
-        <textarea id="desireDescription" placeholder="Describe your desire in detail..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="desirePriority">Priority Level</label>
-        <select id="desirePriority">
-          <option value="low">Low Priority</option>
-          <option value="medium">Medium Priority</option>
-          <option value="high">High Priority</option>
-        </select>
-      </div>
-
-      <button type="submit">+</button>
-    </form>
-
-    <div id="desiresList" class="desires-list"></div>
-
-    <div class="empty-state" id="emptyState">No desires added yet. Start by adding one!</div>
-  </div>
-
-  <div id="toast" class="toast"></div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      getDocs,
-      doc,
-      updateDoc,
-      arrayUnion,
-      arrayRemove
-    } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-    // Initialize Firebase
-    const firebaseConfig = {
-  apiKey: "AIzaSyCLfBy9R_tL8WPRJpmKZMcy70OzhId9V1w",
-  authDomain: "desires-b59a7.firebaseapp.com",
-  projectId: "desires-b59a7",
-  storageBucket: "desires-b59a7.firebasestorage.app",
-  messagingSenderId: "942109661123",
-  appId: "1:942109661123:web:84f2532a442f9d49bb8f76"
-};
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    class DesireTracker {
-      constructor() {
-        this.desires = [];
-        this.userId = null;
-        this.form = document.getElementById('desireForm');
-        this.list = document.getElementById('desiresList');
-        this.toastEl = document.getElementById('toast');
-        this.emptyState = document.getElementById('emptyState');
-        this.initialize();
-      }
-
-      initialize() {
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-        this.list.addEventListener('click', (e) => this.handleCardActions(e));
-
-        auth.onAuthStateChanged(async (user) => {
-          if (user) {
-            this.userId = user.uid;
-            await this.fetchDesires();
-          } else {
-            this.userId = null;
-            this.desires = [];
-            this.displayDesires();
-          }
-        });
-
-        document.getElementById('googleSignInBtn').addEventListener('click', async () => {
-          const provider = new GoogleAuthProvider();
-          try {
-            const result = await signInWithPopup(auth, provider);
-            this.userId = result.user.uid;
-            this.showToast(`Welcome, ${result.user.displayName}!`);
-            await this.fetchDesires();
-          } catch (error) {
-            console.error('Authentication error:', error);
-          }
-        });
-      }
-
-      async fetchDesires() {
-        if (!this.userId) return;
-        const userDesires = collection(db, 'users', this.userId, 'desires');
-        const desiresSnapshot = await getDocs(userDesires);
-        this.desires = desiresSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        this.displayDesires();
-      }
-
-      async handleSubmit(e) {
-        e.preventDefault();
-        const title = document.getElementById('desireTitle').value.trim();
-        const description = document.getElementById('desireDescription').value.trim();
-        const priority = document.getElementById('desirePriority').value;
-
-        if (!title) {
-          this.showToast('Title cannot be empty.', true);
-          return;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desire Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
-        const newDesire = {
-          title,
-          description,
-          priority,
-          notes: [],
-          date: new Date().toISOString()
-        };
-
-        if (this.userId) {
-          const userDesires = collection(db, 'users', this.userId, 'desires');
-          const docRef = await addDoc(userDesires, newDesire);
-          newDesire.id = docRef.id;
-        } else {
-          newDesire.id = Date.now().toString();
+        body {
+            background: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1531563056027-52dd615b5186?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzU2MjA5NjR8&ixlib=rb-4.0.3&q=85');
+            background-size: cover;
         }
 
-        this.desires.unshift(newDesire);
-        this.displayDesires();
-        this.form.reset();
-        this.showToast('Desire added successfully!');
+        .header {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .user-info {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .header .user-info span {
+            font-size: 1rem;
+        }
+
+        .header button {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .header button:hover {
+            background: #d32f2f;
+        }
+
+        .container {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .input-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: 0.5pt solid #000;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+          background: linear-gradient(45deg, rgba(2, 0, 36, 1) 0%, rgba(0, 255, 254, 1) 40%, rgba(252, 148, 98, 0.1) 82%);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #00bcd4;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .desires-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .desire-card {
+            background: #f8f8f8;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .desire-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .desire-card p {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+      .desire-card .card-footer {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
       }
 
-      async handleCardActions(e) {
-        const card = e.target.closest('.desire-card');
-        const cardId = card?.dataset.id;
-        if (!cardId) return;
-
-        if (e.target.classList.contains('delete-btn')) {
-          if (this.userId) {
-            const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
-            await updateDoc(desireDoc, { deleted: true });
-          }
-          this.desires = this.desires.filter(d => d.id !== cardId);
-          this.displayDesires();
-          this.showToast('Desire deleted successfully!');
+        .note-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        if (e.target.classList.contains('add-note-btn')) {
-          const input = card.querySelector('.note-input input');
-          const noteText = input.value.trim();
-          if (noteText) {
-            const desire = this.desires.find(d => d.id === cardId);
-            const note = { id: Date.now().toString(), text: noteText, date: new Date().toISOString() };
+        .note-input input {
+            flex: 1;
+        }
 
-            if (this.userId) {
-              const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
-              await updateDoc(desireDoc, { notes: arrayUnion(note) });
+        .note-list {
+            margin-top: 10px;
+        }
+
+        .note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            background: #fdfdfd;
+        }
+
+        .note span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .note .note-delete {
+            background: none;
+            border: none;
+            color: #ff0000;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .note .note-delete:hover {
+            color: #d32f2f;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00bcd4;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #888;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                max-width: 90%;
             }
 
-            desire.notes.push(note);
-            this.displayDesires();
-            this.showToast('Note added successfully!');
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            .container {
+                max-width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info">
+            <span id="userName">Guest</span>
+            <span id="userEmail"></span>
+        </div>
+        <button id="signOutBtn" style="display: none;">Sign Out</button>
+    </div>
+
+    <div class="container">
+        <h1>✨ Desire Tracker</h1>
+        <div class="input-methods">
+            <button id="googleSignInBtn">🔑 Sign In with Google</button>
+        </div>
+
+        <form class="desire-form" id="desireForm">
+            <div class="form-group">
+                <label for="desireTitle">What's your desire?</label>
+                <input type="text" id="desireTitle" required placeholder="Enter your desire...">
+            </div>
+
+            <div class="form-group">
+                <label for="desireDescription">Description</label>
+                <textarea id="desireDescription" placeholder="Describe your desire in detail..."></textarea>
+            </div>
+
+            <button type="submit">Add Desire</button>
+        </form>
+
+        <div id="desiresList" class="desires-list"></div>
+        <div class="empty-state" id="emptyState">No desires added yet. Start by adding one!</div>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs,
+            doc,
+            deleteDoc,
+            updateDoc,
+            arrayUnion,
+            arrayRemove
+        } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+
+        // Firebase Configuration - Replace with your own
+        const firebaseConfig = { /* Replace with your config */ };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+
+        class DesireCard extends HTMLElement {
+          constructor() {
+            super();
+            this.attachShadow({ mode: 'open' });
           }
-        }
 
-        if (e.target.classList.contains('note-delete')) {
-          const noteId = e.target.dataset.noteId;
-          const desire = this.desires.find(d => d.id === cardId);
-          const note = desire.notes.find(n => n.id === noteId);
 
-          if (this.userId) {
-            const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
-            await updateDoc(desireDoc, { notes: arrayRemove(note) });
+          connectedCallback() {
+                this.render();
+                this.shadowRoot.querySelector('.delete-btn').addEventListener('click', () => this.handleDelete());
+                this.shadowRoot.querySelector('.add-note-btn').addEventListener('click', () => this.handleAddNote());
+              this.shadowRoot.querySelector('.copy-btn').addEventListener('click', () => this.handleCopy());
+              this.shadowRoot.querySelectorAll('.note-delete').forEach(deleteButton => {
+                  deleteButton.addEventListener('click', () => this.handleDeleteNote(deleteButton.dataset.noteId));
+                  });
+
           }
 
-          desire.notes = desire.notes.filter(n => n.id !== noteId);
-          this.displayDesires();
-          this.showToast('Note deleted successfully!');
-        }
-      }
+              static get observedAttributes() {
+                  return ['desire'];
+              }
 
-      showToast(message, isError = false) {
-        this.toastEl.innerText = message;
-        this.toastEl.style.background = isError ? '#f44336' : '#4caf50';
-        this.toastEl.classList.add('show');
-        setTimeout(() => this.toastEl.classList.remove('show'), 3000);
-      }
+          attributeChangedCallback(name, oldValue, newValue){
+                if (name === 'desire'){
+                   this.desire = JSON.parse(newValue);
+                }
+                this.render()
+              }
 
-      displayDesires() {
-        if (!this.desires.length) {
-          this.list.innerHTML = '';
-          this.emptyState.style.display = 'block';
-          return;
-        }
+        handleDelete(){
+                this.dispatchEvent(new CustomEvent('desire-delete',{detail: { id : this.desire.id}}));
+              }
 
-        this.emptyState.style.display = 'none';
-        this.list.innerHTML = this.desires
-          .map(
-            desire => `
-          <div class="desire-card" data-id="${desire.id}">
-            <h3>${desire.title}</h3>
-            <p>${desire.description || 'No description provided.'}</p>
-            <span>${desire.priority}</span>
-            <button class="delete-btn">🗑️</button>
 
-            <div class="note-list">
-              ${desire.notes
-                .map(
-                  note => `
-                <div class="note">
-                  <span>${note.text}</span>
-                  <button class="note-delete" data-note-id="${note.id}">✖</button>
+            handleDeleteNote(noteId){
+                this.dispatchEvent(new CustomEvent('note-delete',{detail: {id : this.desire.id ,noteId}}));
+              }
+
+
+            handleAddNote(){
+               const noteInput = this.shadowRoot.querySelector('.note-input input');
+                const noteText = noteInput.value.trim();
+                if(noteText) {
+                    this.dispatchEvent(new CustomEvent('note-add', { detail: {id: this.desire.id , noteText}}));
+                    noteInput.value = '';
+                  }
+
+             }
+
+             handleCopy(){
+              this.dispatchEvent(new CustomEvent('desire-copy',{detail: {id: this.desire.id}}));
+
+            }
+
+             render() {
+                  if(!this.desire) return;
+                 this.shadowRoot.innerHTML = `
+             <style>
+             .desire-card {
+                   background: #f8f8f8;
+                    padding: 15px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    display: flex;
+                   flex-direction: column;
+                    gap: 10px;
+                   position: relative;
+                   width: 100%;
+             }
+                .desire-card h3 {
+                   font-size: 1.2rem;
+                    color: #333;
+                  margin-bottom: 8px;
+                }
+
+                 .desire-card p {
+                  color: #666;
+                   font-size: 1rem;
+                    margin: 0;
+                 }
+
+                 .desire-card .card-footer {
+                   display: flex;
+                  justify-content: space-between;
+                 margin-top: 10px;
+              }
+              .note-input {
+                   display: flex;
+                  gap: 10px;
+                   margin-top: 10px;
+               }
+
+                 .note-input input {
+                    flex: 1;
+               }
+
+             .note-list {
+                    margin-top: 10px;
+                 }
+                   .note {
+                       display: flex;
+                   justify-content: space-between;
+                       align-items: center;
+                  padding: 8px;
+                    border: 1px solid #ddd;
+                  border-radius: 4px;
+                      margin-bottom: 5px;
+                  background: #fdfdfd;
+                 }
+                .note span {
+                     font-size: 0.9rem;
+                   color: #555;
+                    }
+               .note .note-delete {
+                   background: none;
+                   border: none;
+                  color: #ff0000;
+                  cursor: pointer;
+                   font-size: 1rem;
+               }
+                   .note .note-delete:hover {
+                  color: #d32f2f;
+                 }
+                .delete-btn,
+                .copy-btn,
+               .add-note-btn {
+                     background: none;
+                   border: none;
+                  cursor: pointer;
+                    font-size: 1.2rem;
+                    }
+                  .delete-btn {
+                      color: #ff0000;
+                   }
+
+             </style>
+               <div class="desire-card" data-id="${this.desire.id}">
+               <h3>${this.desire.title}</h3>
+               <p>${this.desire.description || 'No description provided.'}</p>
+             <div class="note-list">
+                      ${this.desire.notes.map(
+                        note =>`
+                          <div class="note">
+                        <span>${note.text} - ${this.formatDate(note.createdAt)}</span>
+                          <button class="note-delete" data-note-id="${note.id}">✖</button>
+                      </div>
+                 `).join('')}
                 </div>
-              `
-                )
-                .join('')}
-            </div>
 
-            <div class="note-input">
-              <input type="text" placeholder="Add a note..." />
-              <button class="add-note-btn">Add</button>
-            </div>
-          </div>
-        `
-          )
-          .join('');
-      }
-    }
+              <div class="note-input">
+               <input type="text" placeholder="Add a note..." />
+                     <button class="add-note-btn">Add</button>
+               </div>
 
-    new DesireTracker();
-  </script>
+               <div class = "card-footer">
+                     <button class="copy-btn">📋</button>
+               <button class="delete-btn">🗑️</button>
+                </div>
+                 </div>
+
+                  `;
+                  }
+
+        formatDate(dateString) {
+                    const date = new Date(dateString);
+                    return date.toLocaleString();
+                }
+
+          }
+
+        customElements.define('desire-card', DesireCard);
+
+
+
+        class DesireTracker {
+            constructor() {
+                this.desires = [];
+                this.userId = null;
+                this.form = document.getElementById('desireForm');
+                this.list = document.getElementById('desiresList');
+                this.toastEl = document.getElementById('toast');
+                this.emptyState = document.getElementById('emptyState');
+                this.userNameEl = document.getElementById('userName');
+                this.userEmailEl = document.getElementById('userEmail');
+                this.signOutBtn = document.getElementById('signOutBtn');
+                this.initialize();
+            }
+
+            initialize() {
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+                this.signOutBtn.addEventListener('click', () => this.handleSignOut());
+
+
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        this.userId = user.uid;
+                        this.userNameEl.textContent = user.displayName;
+                        this.userEmailEl.textContent = user.email;
+                        this.signOutBtn.style.display = 'inline-block';
+                        document.getElementById('googleSignInBtn').style.display = 'none';
+                        await this.fetchDesires();
+                    } else {
+                        this.userId = null;
+                        this.userNameEl.textContent = 'Guest';
+                        this.userEmailEl.textContent = '';
+                        this.signOutBtn.style.display = 'none';
+                        document.getElementById('googleSignInBtn').style.display = 'inline-block';
+                        this.desires = [];
+                        this.displayDesires();
+                    }
+                });
+
+                document.getElementById('googleSignInBtn').addEventListener('click', async () => {
+                    const provider = new GoogleAuthProvider();
+                    try {
+                        const result = await signInWithPopup(auth, provider);
+                        this.userId = result.user.uid;
+                        this.showToast(`Welcome, ${result.user.displayName}!`);
+                        await this.fetchDesires();
+                    } catch (error) {
+                        console.error('Authentication error:', error);
+                         this.showToast(`Error during Sign-In.`, true);
+                    }
+                });
+
+             this.list.addEventListener('desire-delete', (e) => this.handleCardActions(e, 'delete'));
+             this.list.addEventListener('note-delete', (e) => this.handleCardActions(e, 'note-delete'));
+             this.list.addEventListener('note-add', (e) => this.handleCardActions(e, 'note-add'));
+            this.list.addEventListener('desire-copy', (e) => this.handleCardActions(e, 'copy'));
+
+            }
+
+            async handleSignOut() {
+                try {
+                    await signOut(auth);
+                    this.showToast('Signed out successfully!');
+                } catch (error) {
+                    console.error('Sign-out error:', error);
+                  this.showToast('Error signing out.', true);
+                }
+            }
+
+            async fetchDesires() {
+                if (!this.userId) return;
+                const userDesires = collection(db, 'users', this.userId, 'desires');
+                const desiresSnapshot = await getDocs(userDesires);
+                this.desires = desiresSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                 this.displayDesires();
+              }
+
+
+            async handleSubmit(e) {
+                e.preventDefault();
+                const title = document.getElementById('desireTitle').value.trim();
+                const description = document.getElementById('desireDescription').value.trim();
+
+                if (!title) {
+                    this.showToast('Title cannot be empty.', true);
+                    return;
+                }
+
+              const newDesire = {
+                    title,
+                    description,
+                    notes: [],
+                   createdAt: new Date().toLocaleString()
+                  };
+
+
+              if (this.userId) {
+                    const userDesires = collection(db, 'users', this.userId, 'desires');
+                   const docRef = await addDoc(userDesires, newDesire);
+                    newDesire.id = docRef.id;
+                  } else {
+                    newDesire.id = Date.now().toString();
+                    }
+                    this.desires.unshift(newDesire);
+                   this.displayDesires();
+                 this.form.reset();
+                    this.showToast('Desire added successfully!');
+            }
+
+           async handleCardActions(e,action){
+                 const {id, noteId, noteText } = e.detail
+              if(action === 'delete'){
+                  if (this.userId) {
+                    const desireDoc = doc(db, 'users', this.userId, 'desires', id);
+                      await deleteDoc(desireDoc);
+                }
+                   this.desires = this.desires.filter(d => d.id !== id);
+                    this.displayDesires();
+                    this.showToast('Desire deleted successfully!');
+
+                } else if (action === 'note-add') {
+                const desire = this.desires.find(d => d.id === id);
+                  const note = { id: Date.now().toString(), text: noteText , createdAt : new Date().toLocaleString()};
+              if(this.userId){
+                     const desireDoc = doc(db, 'users', this.userId, 'desires', id);
+                        await updateDoc(desireDoc, { notes: arrayUnion(note) });
+                    }
+
+              desire.notes.push(note);
+                   this.displayDesires();
+                     this.showToast('Note added successfully!');
+              }else if(action === 'note-delete'){
+
+                 const desire = this.desires.find(d => d.id === id);
+                const note = desire.notes.find(n => n.id === noteId);
+
+                if (this.userId) {
+                const desireDoc = doc(db, 'users', this.userId, 'desires', id);
+                    await updateDoc(desireDoc, { notes: arrayRemove(note) });
+                }
+
+                   desire.notes = desire.notes.filter(n => n.id !== noteId);
+                    this.displayDesires();
+                     this.showToast('Note deleted successfully!');
+             }else if(action === 'copy'){
+             const desire = this.desires.find(d => d.id === id);
+                const fullText = `${desire.title}\n${desire.description}\nNotes:\n${desire.notes.map(note => `${note.text} - ${this.formatDate(note.createdAt)}`).join('\n')}`;
+                 navigator.clipboard.writeText(fullText).then(() => {
+                    this.showToast('Desire copied to clipboard!');
+               });
+
+                }
+         }
+
+          formatDate(dateString) {
+                 const date = new Date(dateString);
+                   return date.toLocaleString();
+              }
+
+            showToast(message, isError = false) {
+                this.toastEl.innerText = message;
+                 this.toastEl.style.background = isError ? '#f44336' : '#4caf50';
+                 this.toastEl.classList.add('show');
+               setTimeout(() => this.toastEl.classList.remove('show'), 3000);
+           }
+
+
+
+            displayDesires() {
+                if (!this.desires.length) {
+                    this.list.innerHTML = '';
+                  this.emptyState.style.display = 'block';
+                    return;
+                }
+              this.emptyState.style.display = 'none';
+                this.list.innerHTML = this.desires
+                    .map(desire => `<desire-card desire = '${JSON.stringify(desire)}'></desire-card>`).join('');
+            }
+
+        }
+
+      new DesireTracker();
+    </script>
 </body>
 </html>

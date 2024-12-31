@@ -544,8 +544,10 @@
                 }
             }
 
-            formatDate(date) {
-                if (!date) return 'Unknown date';
+            formatDate(timestamp) {
+                if (!timestamp) return 'Unknown date';
+                // Convert Firestore Timestamp to Date if necessary
+                const date = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
                 return new Intl.DateTimeFormat('en-US', {
                     year: 'numeric',
                     month: 'short',
@@ -639,23 +641,26 @@
                 }
 
                 try {
-                    const note = {
+                    const noteForFirestore = {
                         id: Date.now().toString(),
                         text: noteText,
                         createdAt: serverTimestamp()
                     };
 
+                    const noteForLocal = {
+                        id: noteForFirestore.id,
+                        text: noteForFirestore.text,
+                        createdAt: new Date()
+                    };
+
                     const desireRef = doc(this.db, 'users', this.userId, 'desires', desireId);
                     await updateDoc(desireRef, {
-                        notes: arrayUnion(note)
+                        notes: arrayUnion(noteForFirestore)
                     });
 
                     const desire = this.desires.find(d => d.id === desireId);
                     if (!desire.notes) desire.notes = [];
-                    desire.notes.push({
-                        ...note,
-                        createdAt: new Date()
-                    });
+                    desire.notes.push(noteForLocal);
 
                     this.renderDesires();
                     noteInput.value = '';
@@ -669,14 +674,14 @@
             async handleDeleteNote(desireId, noteId) {
                 try {
                     const desire = this.desires.find(d => d.id === desireId);
-                    const note = desire.notes.find(n => n.id === noteId);
+                    const updatedNotes = desire.notes.filter(n => n.id !== noteId);
 
                     const desireRef = doc(this.db, 'users', this.userId, 'desires', desireId);
                     await updateDoc(desireRef, {
-                        notes: arrayRemove(note)
+                        notes: updatedNotes
                     });
 
-                    desire.notes = desire.notes.filter(n => n.id !== noteId);
+                    desire.notes = updatedNotes;
                     this.renderDesires();
                     this.showToast('Note deleted successfully', 'success');
                 } catch (error) {

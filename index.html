@@ -562,15 +562,41 @@
                 card.className = 'desire-card';
                 card.dataset.id = desire.id;
 
-                const notes = desire.notes?.map(note => `
+                // Convert timestamps in notes if needed
+                const notesWithDates = desire.notes?.map(note => ({
+                    ...note,
+                    createdAt: note.createdAt instanceof Date ? note.createdAt : new Date(note.createdAt)
+                })) || [];
+
+                const notes = notesWithDates.map(note => `
                     <div class="note" data-note-id="${note.id}">
                         <div class="note-content">
                             <div class="note-text">${note.text}</div>
-                            <div class="note-timestamp">${this.formatDate(note.createdAt?.toDate())}</div>
+                            <div class="note-timestamp">${this.formatDate(note.createdAt)}</div>
                         </div>
                         <button class="btn btn-danger delete-note">×</button>
                     </div>
-                `).join('') || '';
+                `).join('');
+
+                card.innerHTML = `
+                    <h3>${desire.title}</h3>
+                    <div class="desire-metadata">Created: ${this.formatDate(desire.createdAt)}</div>
+                    <div class="desire-description">${desire.description || 'No description provided.'}</div>
+                    
+                    <div class="notes-section">
+                        <h4>Notes</h4>
+                        <div class="notes-list">${notes}</div>
+                        <div class="note-input-group">
+                            <input type="text" class="note-input form-control" placeholder="Add a note...">
+                            <button class="btn btn-primary add-note">Add Note</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-primary copy-desire">📋 Copy</button>
+                        <button class="btn btn-danger delete-desire">🗑️ Delete</button>
+                    </div>
+                `;
 
                 card.innerHTML = `
                     <h3>${desire.title}</h3>

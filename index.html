@@ -307,7 +307,14 @@
 
 
         // Firebase Configuration - Replace with your own
-        const firebaseConfig = { /* Replace with your config */ };
+       const firebaseConfig = {
+  apiKey: "AIzaSyCLfBy9R_tL8WPRJpmKZMcy70OzhId9V1w",
+  authDomain: "desires-b59a7.firebaseapp.com",
+  projectId: "desires-b59a7",
+  storageBucket: "desires-b59a7.firebasestorage.app",
+  messagingSenderId: "942109661123",
+  appId: "1:942109661123:web:84f2532a442f9d49bb8f76"
+};
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);

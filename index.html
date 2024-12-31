@@ -13,237 +13,225 @@
         }
 
         body {
-            background: #f5f5f5;
+            background: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
             padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1531563056027-52dd615b5186?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzU2MjA5NjR8&ixlib=rb-4.0.3&q=85');
+            background-size: cover;
         }
 
         .header {
-            background: #2c3e50;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .user-info {
+        .header .user-info {
             display: flex;
-            gap: 1rem;
+            gap: 10px;
             align-items: center;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .header .user-info span {
+            font-size: 1rem;
         }
 
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .auth-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
+        .header button {
+            background: #f44336;
+            color: white;
             border: none;
+            padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
+        }
+
+        .header button:hover {
+            background: #d32f2f;
+        }
+
+        .container {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .input-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: 0.5pt solid #000;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background: #3498db;
-            color: white;
+        button:hover {
+            background: linear-gradient(45deg, rgba(2, 0, 36, 1) 0%, rgba(0, 255, 254, 1) 40%, rgba(252, 148, 98, 0.1) 82%);
         }
 
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .desire-form {
-            margin-bottom: 2rem;
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
+        form {
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
+            margin-bottom: 5px;
             font-weight: bold;
+            color: #555;
         }
 
-        input[type="text"],
-        textarea {
+        input, textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            outline: none;
+            transition: border 0.3s ease;
         }
 
-        input[type="text"]:focus,
-        textarea:focus {
-            border-color: #3498db;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        input:focus, textarea:focus {
+            border-color: #00bcd4;
         }
 
         textarea {
-            min-height: 100px;
             resize: vertical;
+            min-height: 100px;
         }
 
         .desires-list {
-            display: grid;
-            gap: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .desire-card {
-            background: #fff;
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            background: #f8f8f8;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             position: relative;
         }
 
-        .desire-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
         .desire-card h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 8px;
         }
 
-        .desire-metadata {
+        .desire-card p {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            margin: 0;
         }
 
-        .desire-description {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+        .desire-card .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #ff0000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        .notes-section {
-            margin-top: 1.5rem;
-            border-top: 1px solid #e1e4e8;
-            padding-top: 1rem;
-        }
-
-        .notes-section h4 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .note {
-            background: #f8f9fa;
-            padding: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .note-content {
-            flex-grow: 1;
-            margin-right: 1rem;
-        }
-
-        .note-text {
-            color: #2c3e50;
-            margin-bottom: 0.25rem;
-        }
-
-        .note-timestamp {
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .note-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .note-input-group {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
+        .desire-card .delete-btn:hover {
+            color: #d32f2f;
         }
 
         .note-input {
-            flex-grow: 1;
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .card-actions {
+        .note-input input {
+            flex: 1;
+        }
+
+        .note-list {
+            margin-top: 10px;
+        }
+
+        .note {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            background: #fdfdfd;
+        }
+
+        .note span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .note .note-delete {
+            background: none;
+            border: none;
+            color: #ff0000;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .note .note-delete:hover {
+            color: #d32f2f;
         }
 
         .toast {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 1rem 1.5rem;
+            top: 20px;
+            right: 20px;
+            background: #00bcd4;
+            color: #fff;
+            padding: 10px 15px;
             border-radius: 4px;
-            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             opacity: 0;
+            transform: translateY(-20px);
             transition: all 0.3s ease;
-            z-index: 1000;
-            transform: translateY(-1rem);
-        }
-
-        .toast.success {
-            background: #2ecc71;
-        }
-
-        .toast.error {
-            background: #e74c3c;
         }
 
         .toast.show {
@@ -253,104 +241,68 @@
 
         .empty-state {
             text-align: center;
-            padding: 3rem;
-            color: #666;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 2px dashed #ddd;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .loading.active {
-            display: block;
+            color: #888;
+            font-size: 1rem;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
             .container {
-                padding: 1rem;
+                padding: 15px;
+                max-width: 90%;
             }
 
-            .desire-card {
-                padding: 1rem;
+            h1 {
+                font-size: 1.5rem;
             }
+        }
 
-            .note-input-group {
-                flex-direction: column;
-            }
-
-            .card-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
+        @media (min-aspect-ratio: 3/4) {
+            .container {
+                max-width: 80%;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="header-content">
-            <div class="user-info">
-                <span id="userName">Guest</span>
-                <span id="userEmail"></span>
-            </div>
-            <button id="signOutBtn" class="btn btn-danger" style="display: none;">Sign Out</button>
+        <div class="user-info">
+            <span id="userName">Guest</span>
+            <span id="userEmail"></span>
         </div>
+        <button id="signOutBtn" style="display: none;">Sign Out</button>
     </div>
 
     <div class="container">
         <h1>✨ Desire Tracker</h1>
-        
-        <div class="auth-section">
-            <button id="googleSignInBtn" class="btn btn-primary">
-                Sign in with Google
-            </button>
+
+        <div class="input-methods">
+            <button id="googleSignInBtn">🔑 Sign In with Google</button>
         </div>
 
-        <form id="desireForm" class="desire-form">
+        <form class="desire-form" id="desireForm">
             <div class="form-group">
                 <label for="desireTitle">What's your desire?</label>
-                <input type="text" id="desireTitle" required 
-                       placeholder="Enter your desire...">
+                <input type="text" id="desireTitle" required placeholder="Enter your desire...">
             </div>
+
             <div class="form-group">
-                <label for="desireDescription">Description (optional)</label>
-                <textarea id="desireDescription" 
-                         placeholder="Describe your desire in detail..."></textarea>
+                <label for="desireDescription">Description</label>
+                <textarea id="desireDescription" placeholder="Describe your desire in detail..."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Add Desire</button>
+
+            <button type="submit">Add Desire</button>
         </form>
 
-        <div id="loading" class="loading">Loading your desires...</div>
         <div id="desiresList" class="desires-list"></div>
-        <div id="emptyState" class="empty-state">
-            No desires added yet. Start by adding one!
-        </div>
+        <div class="empty-state" id="emptyState">No desires added yet. Start by adding one!</div>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { 
-            getAuth, 
-            signInWithPopup, 
-            signOut, 
-            GoogleAuthProvider,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
         import {
             getFirestore,
             collection,
@@ -360,14 +312,9 @@
             deleteDoc,
             updateDoc,
             arrayUnion,
-            arrayRemove,
-            serverTimestamp,
-            query,
-            orderBy,
-            Timestamp
+            arrayRemove
         } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCLfBy9R_tL8WPRJpmKZMcy70OzhId9V1w",
             authDomain: "desires-b59a7.firebaseapp.com",
@@ -377,391 +324,213 @@
             appId: "1:942109661123:web:84f2532a442f9d49bb8f76"
         };
 
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
         class DesireTracker {
             constructor() {
-                // Initialize Firebase
-                this.app = initializeApp(firebaseConfig);
-                this.auth = getAuth(this.app);
-                this.db = getFirestore(this.app);
-                this.provider = new GoogleAuthProvider();
-
-                // State
                 this.desires = [];
                 this.userId = null;
-
-                // Initialize UI
-                this.initializeElements();
-                this.attachEventListeners();
-                this.setupAuthStateObserver();
+                this.form = document.getElementById('desireForm');
+                this.list = document.getElementById('desiresList');
+                this.toastEl = document.getElementById('toast');
+                this.emptyState = document.getElementById('emptyState');
+                this.userNameEl = document.getElementById('userName');
+                this.userEmailEl = document.getElementById('userEmail');
+                this.signOutBtn = document.getElementById('signOutBtn');
+                this.initialize();
             }
 
-            initializeElements() {
-                // Get DOM elements
-                this.elements = {
-                    form: document.getElementById('desireForm'),
-                    list: document.getElementById('desiresList'),
-                    toast: document.getElementById('toast'),
-                    emptyState: document.getElementById('emptyState'),
-                    loading: document.getElementById('loading'),
-                    userName: document.getElementById('userName'),
-                    userEmail: document.getElementById('userEmail'),
-                    signOutBtn: document.getElementById('signOutBtn'),
-                    googleSignInBtn: document.getElementById('googleSignInBtn')
-                };
-            }
+            initialize() {
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+                this.list.addEventListener('click', (e) => this.handleCardActions(e));
+                this.signOutBtn.addEventListener('click', () => this.handleSignOut());
 
-            attachEventListeners() {
-                // Form submission
-                this.elements.form.addEventListener('submit', e => {
-                    e.preventDefault();
-                    this.handleAddDesire();
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        this.userId = user.uid;
+                        this.userNameEl.textContent = user.displayName;
+                        this.userEmailEl.textContent = user.email;
+                        this.signOutBtn.style.display = 'inline-block';
+                        document.getElementById('googleSignInBtn').style.display = 'none';
+                        await this.fetchDesires();
+                    } else {
+                        this.userId = null;
+                        this.userNameEl.textContent = 'Guest';
+                        this.userEmailEl.textContent = '';
+                        this.signOutBtn.style.display = 'none';
+                        document.getElementById('googleSignInBtn').style.display = 'inline-block';
+                        this.desires = [];
+                        this.displayDesires();
+                    }
                 });
 
-                // Auth buttons
-                this.elements.signOutBtn.addEventListener('click', () => this.handleSignOut());
-                this.elements.googleSignInBtn.addEventListener('click', () => this.handleSignIn());
-
-                // Delegate event listener for desire cards
-                this.elements.list.addEventListener('click', e => this.handleCardActions(e));
-            }
-
-            setupAuthStateObserver() {
-                onAuthStateChanged(this.auth, async user => {
-                    if (user) {
-                        await this.handleUserSignedIn(user);
-                    } else {
-                        this.handleUserSignedOut();
+                document.getElementById('googleSignInBtn').addEventListener('click', async () => {
+                    const provider = new GoogleAuthProvider();
+                    try {
+                        const result = await signInWithPopup(auth, provider);
+                        this.userId = result.user.uid;
+                        this.showToast(`Welcome, ${result.user.displayName}!`);
+                        await this.fetchDesires();
+                    } catch (error) {
+                        console.error('Authentication error:', error);
                     }
                 });
             }
 
-            async handleUserSignedIn(user) {
-                this.userId = user.uid;
-                this.elements.userName.textContent = user.displayName;
-                this.elements.userEmail.textContent = user.email;
-                this.elements.signOutBtn.style.display = 'block';
-                this.elements.googleSignInBtn.style.display = 'none';
-                await this.loadDesires();
-                this.showToast('Signed in successfully!', 'success');
-            }
-
-            handleUserSignedOut() {
-                this.userId = null;
-                this.desires = [];
-                this.elements.userName.textContent = 'Guest';
-                this.elements.userEmail.textContent = '';
-                this.elements.signOutBtn.style.display = 'none';
-                this.elements.googleSignInBtn.style.display = 'block';
-                this.elements.list.innerHTML = '';
-                this.elements.emptyState.style.display = 'block';
-            }
-
-            async handleSignIn() {
-                try {
-                    await signInWithPopup(this.auth, this.provider);
-                } catch (error) {
-                    console.error('Sign-in error:', error);
-                    this.showToast('Failed to sign in', 'error');
-                }
-            }
-
             async handleSignOut() {
                 try {
-                    await signOut(this.auth);
-                    this.showToast('Signed out successfully', 'success');
+                    await signOut(auth);
+                    this.showToast('Signed out successfully!');
                 } catch (error) {
                     console.error('Sign-out error:', error);
-                    this.showToast('Failed to sign out', 'error');
+                    this.showToast('Error signing out.', true);
                 }
             }
 
-            async loadDesires() {
+            async fetchDesires() {
                 if (!this.userId) return;
-
-                this.elements.loading.classList.add('active');
-                try {
-                    const desiresRef = collection(this.db, 'users', this.userId, 'desires');
-                    const q = query(desiresRef, orderBy('createdAt', 'desc'));
-                    const querySnapshot = await getDocs(q);
-
-                    this.desires = querySnapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data(),
-                        createdAt: doc.data().createdAt?.toDate()
-                    }));
-
-                    this.renderDesires();
-                } catch (error) {
-                    console.error('Error loading desires:', error);
-                    this.showToast('Failed to load desires', 'error');
-                } finally {
-                    this.elements.loading.classList.remove('active');
-                }
+                const userDesires = collection(db, 'users', this.userId, 'desires');
+                const desiresSnapshot = await getDocs(userDesires);
+                this.desires = desiresSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                this.displayDesires();
             }
 
-            async handleAddDesire() {
-                if (!this.userId) {
-                    this.showToast('Please sign in first', 'error');
-                    return;
-                }
-
-                const titleInput = document.getElementById('desireTitle');
-                const descInput = document.getElementById('desireDescription');
-                const title = titleInput.value.trim();
-                const description = descInput.value.trim();
+            async handleSubmit(e) {
+                e.preventDefault();
+                const title = document.getElementById('desireTitle').value.trim();
+                const description = document.getElementById('desireDescription').value.trim();
 
                 if (!title) {
-                    this.showToast('Please enter a title', 'error');
+                    this.showToast('Title cannot be empty.', true);
                     return;
                 }
 
-                try {
-                    const desireData = {
-                        title,
-                        description,
-                        createdAt: serverTimestamp(),
-                        notes: []
-                    };
+                const newDesire = {
+                    title,
+                    description,
+                    notes: [],
+                    date: new Date().toISOString()
+                };
 
-                    const docRef = await addDoc(
-                        collection(this.db, 'users', this.userId, 'desires'),
-                        desireData
-                    );
+                if (this.userId) {
+                    const userDesires = collection(db, 'users', this.userId, 'desires');
+                    const docRef = await addDoc(userDesires, newDesire);
+                    newDesire.id = docRef.id;
+                } else {
+                    newDesire.id = Date.now().toString();
+                }
 
-                    // Add to local array with client timestamp for immediate display
-                    this.desires.unshift({
-                        id: docRef.id,
-                        ...desireData,
-                        createdAt: new Date()
-                    });
+                this.desires.unshift(newDesire);
+                this.displayDesires();
+                this.form.reset();
+                this.showToast('Desire added successfully!');
+            }
 
-                    this.renderDesires();
-                    this.elements.form.reset();
-                    this.showToast('Desire added successfully', 'success');
-                } catch (error) {
-                    console.error('Error adding desire:', error);
-                    this.showToast('Failed to add desire', 'error');
+            async handleCardActions(e) {
+                const card = e.target.closest('.desire-card');
+                const cardId = card?.dataset.id;
+                if (!cardId) return;
+
+                if (e.target.classList.contains('delete-btn')) {
+                    if (this.userId) {
+                        const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
+                        await deleteDoc(desireDoc);
+                    }
+                    this.desires = this.desires.filter(d => d.id !== cardId);
+                    this.displayDesires();
+                    this.showToast('Desire deleted successfully!');
+                }
+
+                if (e.target.classList.contains('add-note-btn')) {
+                    const input = card.querySelector('.note-input input');
+                    const noteText = input.value.trim();
+                    if (noteText) {
+                        const desire = this.desires.find(d => d.id === cardId);
+                        const note = {
+                            id: Date.now().toString(),
+                            text: noteText,
+                            date: new Date().toISOString()
+                        };
+
+                        if (this.userId) {
+                            const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
+                            await updateDoc(desireDoc, { 
+                                notes: arrayUnion(note)
+                            });
+                        }
+
+                        if (!desire.notes) desire.notes = [];
+                        desire.notes.push(note);
+                        this.displayDesires();
+                        input.value = '';
+                        this.showToast('Note added successfully!');
+                    }
+                }
+
+                if (e.target.classList.contains('note-delete')) {
+                    const noteId = e.target.dataset.noteId;
+                    const desire = this.desires.find(d => d.id === cardId);
+                    const note = desire.notes.find(n => n.id === noteId);
+
+                    if (this.userId) {
+                        const desireDoc = doc(db, 'users', this.userId, 'desires', cardId);
+                        await updateDoc(desireDoc, { 
+                            notes: arrayRemove(note)
+                        });
+                    }
+
+                    desire.notes = desire.notes.filter(n => n.id !== noteId);
+                    this.displayDesires();
+                    this.showToast('Note deleted successfully!');
                 }
             }
 
-            formatDate(timestamp) {
-                if (!timestamp) return 'Unknown date';
-                // Convert Firestore Timestamp to Date if necessary
-                const date = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
-                return new Intl.DateTimeFormat('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }).format(date);
+            showToast(message, isError = false) {
+                this.toastEl.innerText = message;
+                this.toastEl.style.background = isError ? '#f44336' : '#4caf50';
+                this.toastEl.classList.add('show');
+                setTimeout(() => this.toastEl.classList.remove('show'), 3000);
             }
 
-            createDesireCard(desire) {
-                const card = document.createElement('div');
-                card.className = 'desire-card';
-                card.dataset.id = desire.id;
-
-                // Convert timestamps in notes if needed
-                const notesWithDates = desire.notes?.map(note => ({
-                    ...note,
-                    createdAt: note.createdAt instanceof Date ? note.createdAt : new Date(note.createdAt)
-                })) || [];
-
-                const notes = notesWithDates.map(note => `
-                    <div class="note" data-note-id="${note.id}">
-                        <div class="note-content">
-                            <div class="note-text">${note.text}</div>
-                            <div class="note-timestamp">${this.formatDate(note.createdAt)}</div>
-                        </div>
-                        <button class="btn btn-danger delete-note">×</button>
-                    </div>
-                `).join('');
-
-                card.innerHTML = `
-                    <h3>${desire.title}</h3>
-                    <div class="desire-metadata">Created: ${this.formatDate(desire.createdAt)}</div>
-                    <div class="desire-description">${desire.description || 'No description provided.'}</div>
-                    
-                    <div class="notes-section">
-                        <h4>Notes</h4>
-                        <div class="notes-list">${notes}</div>
-                        <div class="note-input-group">
-                            <input type="text" class="note-input form-control" placeholder="Add a note...">
-                            <button class="btn btn-primary add-note">Add Note</button>
-                        </div>
-                    </div>
-                    
-                    <div class="card-actions">
-                        <button class="btn btn-primary copy-desire">📋 Copy</button>
-                        <button class="btn btn-danger delete-desire">🗑️ Delete</button>
-                    </div>
-                `;
-
-                card.innerHTML = `
-                    <h3>${desire.title}</h3>
-                    <div class="desire-metadata">Created: ${this.formatDate(desire.createdAt)}</div>
-                    <div class="desire-description">${desire.description || 'No description provided.'}</div>
-                    
-                    <div class="notes-section">
-                        <h4>Notes</h4>
-                        <div class="notes-list">${notes}</div>
-                        <div class="note-input-group">
-                            <input type="text" class="note-input form-control" placeholder="Add a note...">
-                            <button class="btn btn-primary add-note">Add Note</button>
-                        </div>
-                    </div>
-                    
-                    <div class="card-actions">
-                        <button class="btn btn-primary copy-desire">📋 Copy</button>
-                        <button class="btn btn-danger delete-desire">🗑️ Delete</button>
-                    </div>
-                `;
-
-                return card;
-            }
-
-            handleCardActions(e) {
-                const target = e.target;
-                const card = target.closest('.desire-card');
-                if (!card) return;
-
-                const desireId = card.dataset.id;
-                const desire = this.desires.find(d => d.id === desireId);
-                if (!desire) return;
-
-                if (target.classList.contains('delete-desire')) {
-                    this.handleDeleteDesire(desireId);
-                } else if (target.classList.contains('delete-note')) {
-                    const noteId = target.closest('.note').dataset.noteId;
-                    this.handleDeleteNote(desireId, noteId);
-                } else if (target.classList.contains('add-note')) {
-                    const noteInput = card.querySelector('.note-input');
-                    this.handleAddNote(desireId, noteInput);
-                } else if (target.classList.contains('copy-desire')) {
-                    this.handleCopyDesire(desire);
-                }
-            }
-
-            async handleDeleteDesire(id) {
-                if (!confirm('Are you sure you want to delete this desire?')) {
-                    return;
-                }
-
-                try {
-                    await deleteDoc(doc(this.db, 'users', this.userId, 'desires', id));
-                    this.desires = this.desires.filter(d => d.id !== id);
-                    this.renderDesires();
-                    this.showToast('Desire deleted successfully', 'success');
-                } catch (error) {
-                    console.error('Error deleting desire:', error);
-                    this.showToast('Failed to delete desire', 'error');
-                }
-            }
-
-            async handleAddNote(desireId, noteInput) {
-                const noteText = noteInput.value.trim();
-                if (!noteText) {
-                    this.showToast('Please enter a note', 'error');
-                    return;
-                }
-
-                try {
-                    const noteForFirestore = {
-                        id: Date.now().toString(),
-                        text: noteText,
-                        createdAt: serverTimestamp()
-                    };
-
-                    const noteForLocal = {
-                        id: noteForFirestore.id,
-                        text: noteForFirestore.text,
-                        createdAt: new Date()
-                    };
-
-                    const desireRef = doc(this.db, 'users', this.userId, 'desires', desireId);
-                    await updateDoc(desireRef, {
-                        notes: arrayUnion(noteForFirestore)
-                    });
-
-                    const desire = this.desires.find(d => d.id === desireId);
-                    if (!desire.notes) desire.notes = [];
-                    desire.notes.push(noteForLocal);
-
-                    this.renderDesires();
-                    noteInput.value = '';
-                    this.showToast('Note added successfully', 'success');
-                } catch (error) {
-                    console.error('Error adding note:', error);
-                    this.showToast('Failed to add note', 'error');
-                }
-            }
-
-            async handleDeleteNote(desireId, noteId) {
-                try {
-                    const desire = this.desires.find(d => d.id === desireId);
-                    const updatedNotes = desire.notes.filter(n => n.id !== noteId);
-
-                    const desireRef = doc(this.db, 'users', this.userId, 'desires', desireId);
-                    await updateDoc(desireRef, {
-                        notes: updatedNotes
-                    });
-
-                    desire.notes = updatedNotes;
-                    this.renderDesires();
-                    this.showToast('Note deleted successfully', 'success');
-                } catch (error) {
-                    console.error('Error deleting note:', error);
-                    this.showToast('Failed to delete note', 'error');
-                }
-            }
-
-            async handleCopyDesire(desire) {
-                const notesText = desire.notes?.map(note => 
-                    `- ${note.text} (${this.formatDate(note.createdAt?.toDate())})`
-                ).join('\n') || 'No notes';
-
-                const textToCopy = `
-Desire: ${desire.title}
-Description: ${desire.description || 'No description'}
-Created: ${this.formatDate(desire.createdAt)}
-
-Notes:
-${notesText}
-`.trim();
-
-                try {
-                    await navigator.clipboard.writeText(textToCopy);
-                    this.showToast('Copied to clipboard', 'success');
-                } catch (error) {
-                    console.error('Error copying to clipboard:', error);
-                    this.showToast('Failed to copy to clipboard', 'error');
-                }
-            }
-
-            renderDesires() {
+            displayDesires() {
                 if (!this.desires.length) {
-                    this.elements.list.innerHTML = '';
-                    this.elements.emptyState.style.display = 'block';
+                    this.list.innerHTML = '';
+                    this.emptyState.style.display = 'block';
                     return;
                 }
 
-                this.elements.emptyState.style.display = 'none';
-                this.elements.list.innerHTML = '';
-                
-                this.desires.forEach(desire => {
-                    this.elements.list.appendChild(this.createDesireCard(desire));
-                });
-            }
+                this.emptyState.style.display = 'none';
+                this.list.innerHTML = this.desires
+                    .map(
+                        desire => `
+                        <div class="desire-card" data-id="${desire.id}">
+                            <h3>${desire.title}</h3>
+                            <p>${desire.description || 'No description provided.'}</p>
+                            <button class="delete-btn">🗑️</button>
 
-            showToast(message, type = 'success') {
-                this.elements.toast.textContent = message;
-                this.elements.toast.className = `toast ${type}`;
-                this.elements.toast.classList.add('show');
-                
-                setTimeout(() => {
-                    this.elements.toast.classList.remove('show');
-                }, 3000);
+                            <div class="note-list">
+                                ${desire.notes
+                                    .map(
+                                        note => `
+                                        <div class="note">
+                                            <span>${note.text}</span>
+                                            <button class="note-delete" data-note-id="${note.id}">✖</button>
+                                        </div>
+                                        `
+                                    )
+                                    .join('')}
+                            </div>
+
+                            <div class="note-input">
+                                <input type="text" placeholder="Add a note..." />
+                                <button class="add-note-btn">Add</button>
+                            </div>
+                        </div>
+                        `
+                    )
+                    .join('');
             }
         }
 

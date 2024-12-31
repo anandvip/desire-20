@@ -468,4 +468,154 @@
                 return card;
             }
 
-            async handleListClick(e
+            async handleListClick(e) {
+                const target = e.target;
+                const card = target.closest('.desire-card');
+                if (!card) return;
+
+                const desireId = card.dataset.id;
+                const desire = this.desires.find(d => d.id === desireId);
+                if (!desire) return;
+
+                if (target.classList.contains('delete')) {
+                    await this.handleDeleteDesire(desireId);
+                } else if (target.classList.contains('note-delete')) {
+                    const noteId = target.closest('.note').dataset.noteId;
+                    await this.handleDeleteNote(desireId, noteId);
+                } else if (target.classList.contains('add-note')) {
+                    const input = card.querySelector('.note-input-field');
+                    await this.handleAddNote(desireId, input);
+                } else if (target.classList.contains('copy')) {
+                    this.handleCopyDesire(desire);
+                }
+            }
+
+            async handleDeleteDesire(desireId) {
+                try {
+                    if (this.userId) {
+                        const desireRef = doc(db, 'users', this.userId, 'desires', desireId);
+                        await deleteDoc(desireRef);
+                    }
+                    this.desires = this.desires.filter(d => d.id !== desireId);
+                    this.displayDesires();
+                    this.showToast('Desire deleted successfully!', 'success');
+                } catch (error) {
+                    console.error('Error deleting desire:', error);
+                    this.showToast('Failed to delete desire', 'error');
+                }
+            }
+
+            async handleAddNote(desireId, inputElement) {
+                const noteText = inputElement.value.trim();
+                if (!noteText) {
+                    this.showToast('Please enter a note', 'error');
+                    return;
+                }
+
+                try {
+                    const note = {
+                        id: Date.now().toString(),
+                        text: noteText,
+                        createdAt: new Date()
+                    };
+
+                    if (this.userId) {
+                        const desireRef = doc(db, 'users', this.userId, 'desires', desireId);
+                        await updateDoc(desireRef, {
+                            notes: arrayUnion({
+                                ...note,
+                                createdAt: serverTimestamp()
+                            })
+                        });
+                    }
+
+                    const desire = this.desires.find(d => d.id === desireId);
+                    if (!desire.notes) desire.notes = [];
+                    desire.notes.push(note);
+                    
+                    this.displayDesires();
+                    inputElement.value = '';
+                    this.showToast('Note added successfully!', 'success');
+                } catch (error) {
+                    console.error('Error adding note:', error);
+                    this.showToast('Failed to add note', 'error');
+                }
+            }
+
+            async handleDeleteNote(desireId, noteId) {
+                try {
+                    const desire = this.desires.find(d => d.id === desireId);
+                    const note = desire.notes.find(n => n.id === noteId);
+
+                    if (this.userId) {
+                        const desireRef = doc(db, 'users', this.userId, 'desires', desireId);
+                        await updateDoc(desireRef, {
+                            notes: arrayRemove(note)
+                        });
+                    }
+
+                    desire.notes = desire.notes.filter(n => n.id !== noteId);
+                    this.displayDesires();
+                    this.showToast('Note deleted successfully!', 'success');
+                } catch (error) {
+                    console.error('Error deleting note:', error);
+                    this.showToast('Failed to delete note', 'error');
+                }
+            }
+
+            handleCopyDesire(desire) {
+                try {
+                    const notesText = desire.notes?.map(note => 
+                        `- ${note.text} (${this.formatDate(note.createdAt)})`
+                    ).join('\n') || 'No notes';
+
+                    const textToCopy = `
+Desire: ${desire.title}
+Description: ${desire.description || 'No description'}
+Created: ${this.formatDate(desire.createdAt)}
+
+Notes:
+${notesText}
+`.trim();
+
+                    navigator.clipboard.writeText(textToCopy);
+                    this.showToast('Copied to clipboard!', 'success');
+                } catch (error) {
+                    console.error('Error copying to clipboard:', error);
+                    this.showToast('Failed to copy to clipboard', 'error');
+                }
+            }
+
+            displayDesires() {
+                if (!this.desires.length) {
+                    this.list.innerHTML = '';
+                    this.emptyState.style.display = 'block';
+                    return;
+                }
+
+                this.emptyState.style.display = 'none';
+                this.list.innerHTML = '';
+                
+                this.desires
+                    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+                    .forEach(desire => {
+                        this.list.appendChild(this.createDesireCard(desire));
+                    });
+            }
+
+            showToast(message, type = 'success') {
+                this.toast.textContent = message;
+                this.toast.className = `toast ${type}`;
+                this.toast.classList.add('show');
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Initialize the application
+        new DesireTracker();
+    </script>
+</body>
+</html>
